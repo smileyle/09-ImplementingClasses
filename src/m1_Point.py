@@ -88,6 +88,23 @@ class Point(object):
     def get_distance_traveled(self):
         return self.traveled
 
+    def closer_to(self, p2, p3):
+        d1 = self.get_distance_from(p2)
+        d2 = self.get_distance_from(p3)
+        if d1 > d2:
+            return p3
+        if d1 < d2:
+            return p2
+        if d1 == d2:
+            return p2
+
+    def halfway_to(self, p2):
+        midpoint = Point(0, 0)
+        dx = (self.x - p2.x) / 2
+        dy = (self.y - p2.y) / 2
+        midpoint = Point(p2.x + dx, p2.y + dy)
+        return midpoint
+
 def run_test_init():
     """
     Tests the   __init__   method of the Point class.
@@ -1065,7 +1082,7 @@ def run_test_halfway_to():
 
     """
     # --------------------------------------------------------------------------
-    # TODO: 13.  Follow the same instructions as in TO-DO 3 above,
+    # Done: 13.  Follow the same instructions as in TO-DO 3 above,
     #    but for the  halfway_to  method specified above.
     # --------------------------------------------------------------------------
     print()
@@ -1073,6 +1090,31 @@ def run_test_halfway_to():
     print('Testing the   halfway_to   method of the Point class.')
     print('-----------------------------------------------------------')
 
+    p1 = Point(10, 20)
+    p2 = Point(30, 100)
+
+    print()
+    print('Should be: Point(20.0, 60.0)')
+    print('Actual is:', p1.halfway_to(p2))
+    print('Should be: Point(20.0, 60.0)')
+    print('Actual is:', p2.halfway_to(p1))
+
+    print()
+    print('Should be: Point(10.0, 20.0)')
+    print('Actual is:', p1.halfway_to(p1))
+
+    p3 = Point(-10, 20)
+    p4 = Point(30, -100)
+
+    print()
+    print('Should be: Point(10.0, -40.0)')
+    print('Actual is:', p3.halfway_to(p4))
+    print('Should be: Point(10.0, -40.0)')
+    print('Actual is:', p3.halfway_to(p4))
+
+    print()
+    print('Should be: Point(-10.0, 20.0)')
+    print('Actual is:', p3.halfway_to(p3))
 
 # ------------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
